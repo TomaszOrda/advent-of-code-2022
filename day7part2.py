@@ -1,47 +1,25 @@
-# with open('Day_7_test.txt') as f:
-with open('Day_7.txt') as f:
-    commands_executed = f.readlines()
+def solution(raw_input: str):
+    commands_executed = raw_input.splitlines()
+    directories = {}
 
-directories = {}
-
-def find_size(index, directory):
-    size = 0
-    index+=2
-    while(index<len(commands_executed) and not commands_executed[index].startswith("$ cd")):
-        if commands_executed[index].startswith("dir"):
-            size+=directories[commands_executed[index][4:-1]]
-        else:
-            size+=int(commands_executed[index].split()[0])
-        index+=1
-    directories[directory] = size
-
-for index, command in enumerate(reversed(commands_executed)):
-    if command[0:4] == "$ cd" and not command == "$ cd ..\n":
-        find_size(len(commands_executed)-1-index, command[5:-1])
-
-space_needed=30000000-(70000000-directories["/"])
-# print(space_needed)
-
-directories = {}
-last_candidate_size = 70000000
-
-def find_candidate(index, directory):
-    size = 0
-    index+=2
-    while(index<len(commands_executed) and not commands_executed[index].startswith("$ cd")):
-        if commands_executed[index].startswith("dir"):
-            size+=directories[commands_executed[index][4:-1]]
-        else:
-            size+=int(commands_executed[index].split()[0])
-        index+=1
-    directories[directory] = size
-    global last_candidate_size
-    if size<last_candidate_size and size>=space_needed: 
-        last_candidate_size = size 
+    def find_size(index):
+        size = 0
+        for command in commands_executed[index+2:]:
+            if command.startswith("$ cd"):
+                break
+            if command.startswith("dir"):
+                size += directories[command[4:]]
+            else:
+                size += int(command.split()[0])
+        return size
     
+    for index, command in enumerate(reversed(commands_executed)):
+        if command.startswith("$ cd") and not command.endswith(".."):
+            directory = command[5:]
+            directories[directory] = find_size(len(commands_executed)-1-index)
 
-for index, command in enumerate(reversed(commands_executed)):
-    if command[0:4] == "$ cd" and not command == "$ cd ..\n":
-        find_candidate(len(commands_executed)-1-index, command[5:-1])
+    space_needed=30000000-(70000000-directories["/"])
 
-print(last_candidate_size)
+    smallest_candidate_size = min(dir_size for dir_size in directories.values() if dir_size>=space_needed)
+
+    return smallest_candidate_size
