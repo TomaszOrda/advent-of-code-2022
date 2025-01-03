@@ -1,5 +1,6 @@
 __pycache__
 
 /Day*/
-Day*.txt
+Day_*.txt
+!Day_*_test.txt
 TODO
