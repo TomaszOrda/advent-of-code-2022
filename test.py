@@ -16,9 +16,9 @@ class TestSolution(unittest.TestCase):
 
     def test_all_solutions(self):
         for (day,part) in SOLUTIONS_TO_TEST:
-            raw_input = get_test_file(f'Day_{day}_test.txt')
+            raw_input = get_test_file(f'day_{day}_test.txt')
             with self.subTest(day=day, part=part):
-                solution_module = importlib.import_module(f'solutions.day{day}part{part}')
+                solution_module = importlib.import_module(f'solutions.day_{day}_part_{part}')
                 self.assertEqual(solution_module.solution(raw_input), ANSWERS[(day, part)])
 
 
