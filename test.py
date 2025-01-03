@@ -2,7 +2,7 @@ import unittest
 import importlib
 
 def get_test_file(file):
-    with open(file) as F:
+    with open(f'data\{file}') as F:
         raw_input = F.read()
     return raw_input
 
@@ -18,7 +18,7 @@ class TestSolution(unittest.TestCase):
         for (day,part) in SOLUTIONS_TO_TEST:
             raw_input = get_test_file(f'Day_{day}_test.txt')
             with self.subTest(day=day, part=part):
-                solution_module = importlib.import_module(f'day{day}part{part}')
+                solution_module = importlib.import_module(f'solutions.day{day}part{part}')
                 self.assertEqual(solution_module.solution(raw_input), ANSWERS[(day, part)])
 
 

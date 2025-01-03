@@ -1,5 +1,6 @@
 __pycache__
 
+old_solutions
 /Day*/
 Day_*.txt
 !Day_*_test.txt
