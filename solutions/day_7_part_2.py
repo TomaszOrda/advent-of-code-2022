@@ -12,7 +12,7 @@ def solution(raw_input: str):
             else:
                 size += int(command.split()[0])
         return size
-    
+
     for index, command in enumerate(reversed(commands_executed)):
         if command.startswith("$ cd") and not command.endswith(".."):
             directory = command[5:]
