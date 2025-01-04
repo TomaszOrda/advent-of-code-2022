@@ -1,6 +1,7 @@
 import unittest
 import importlib
 import json
+import os
 
 def get_test_file(file):
     with open(f'data\\{file}', encoding="UTF-8") as f:
@@ -17,6 +18,8 @@ class TestSolution(unittest.TestCase):
 
     def test_all_solutions(self):
         for ((day, part), answer) in get_test_data().items():
+            if not os.path.exists(f"solutions//day_{day}_part_{part}.py"):
+                continue
             raw_input = get_test_file(f'day_{day}_test.txt')
             with self.subTest(day=day, part=part):
                 solution_module = importlib.import_module(f'solutions.day_{day}_part_{part}')
