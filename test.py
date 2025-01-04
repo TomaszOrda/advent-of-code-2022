@@ -1,14 +1,12 @@
 import unittest
 import importlib
-from typing import Dict, Tuple, Any
 
 def get_test_file(file):
     with open(f'data\\{file}', encoding="UTF-8") as f:
         raw_input = f.read()
     return raw_input
 
-SOLUTIONS_TO_TEST = [(day, part) for day in range(1,26) for part in range(1,3) if day in [1,7] and (day,part) != (25,2)]
-ANSWERS: Dict[Tuple[int, int], Any] = {
+ANSWERS = {
     (1,1): 24000,
     (1,2): 45000,
     (7,1): 95437,
@@ -18,11 +16,11 @@ ANSWERS: Dict[Tuple[int, int], Any] = {
 class TestSolution(unittest.TestCase):
 
     def test_all_solutions(self):
-        for (day,part) in SOLUTIONS_TO_TEST:
+        for ((day, part), answer) in ANSWERS.items():
             raw_input = get_test_file(f'day_{day}_test.txt')
             with self.subTest(day=day, part=part):
                 solution_module = importlib.import_module(f'solutions.day_{day}_part_{part}')
-                self.assertEqual(solution_module.solution(raw_input), ANSWERS[(day, part)])
+                self.assertEqual(solution_module.solution(raw_input), answer)
 
 
 
