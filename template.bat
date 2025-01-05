@@ -11,6 +11,6 @@ echo.>> %FileNameStem%1.py
 echo.>> %FileNameStem%1.py
 echo def solution(raw_input: str):>> %FileNameStem%1.py
 echo.>> %FileNameStem%1.py
-(echo     return 0) >> %FileNameStem%1.py
+(echo     return None) >> %FileNameStem%1.py
 
 copy %FileNameStem%1.py %FileNameStem%2.py

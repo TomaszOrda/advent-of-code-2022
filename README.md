@@ -21,7 +21,7 @@ Data for each task can be accessed through the site.
   ★ **Set up repository**<br>
   ★ **Write a TODO list**<br>
   ★ **Create templates**<br>
-  ☆ **Design test functionality**<br>
+  ★ **Design test functionality**<br>
   ☆ **Write solutions for the first 4 days, originally written in JavaScript**<br>
   ☆ **Refactor all the other solutions**<br>
   ☆ **Write solutions for missing days**
