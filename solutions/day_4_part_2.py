@@ -5,6 +5,7 @@ def parse_assignment(assignment: str):
         for elf in elves
     )
 
+
 def overlaps(pair):
     elf_1 = set(range(pair[0][0], pair[0][1]+1))
     elf_2 = set(range(pair[1][0], pair[1][1]+1))

@@ -18,8 +18,8 @@ def solution(raw_input: str):
             directory = command[5:]
             directories[directory] = find_size(len(commands_executed)-1-index)
 
-    space_needed=30000000-(70000000-directories["/"])
+    space_needed = 30000000-(70000000-directories["/"])
 
-    smallest_candidate_size = min(dir_size for dir_size in directories.values() if dir_size>=space_needed)
+    smallest_candidate_size = min(dir_size for dir_size in directories.values() if dir_size >= space_needed)
 
     return smallest_candidate_size

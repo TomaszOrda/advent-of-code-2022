@@ -13,7 +13,7 @@ def solution(raw_input: str):
                 size += int(command.split()[0])
 
         directories[directory] = size
-        if size<=100000:
+        if size <= 100000:
             return size
         else:
             return 0

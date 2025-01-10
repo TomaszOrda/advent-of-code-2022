@@ -5,6 +5,7 @@ def parse_assignment(assignment: str):
         for elf in elves
     )
 
+
 def fully_contains(pair):
     elf_1 = pair[0]
     elf_2 = pair[1]

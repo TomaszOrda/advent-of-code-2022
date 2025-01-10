@@ -1,14 +1,15 @@
 VALUE = {
-    "A" : 1,
-    "B" : 2,
-    "C" : 3,
+    "A": 1,
+    "B": 2,
+    "C": 3,
 }
 
 OUTCOME_OF_THE_ROUND_VALUE = {
-    "X" : 0,
-    "Y" : 3,
-    "Z" : 6
+    "X": 0,
+    "Y": 3,
+    "Z": 6
 }
+
 
 def player_choice_value(opponent, outcome):
     shift = OUTCOME_OF_THE_ROUND_VALUE[outcome]//3 - 1
@@ -20,9 +21,11 @@ def player_choice_value(opponent, outcome):
     else:
         return player
 
+
 def total_score_of_the_round(opponent, outcome):
     return OUTCOME_OF_THE_ROUND_VALUE[outcome] + player_choice_value(opponent, outcome)
 
+
 def solution(raw_input: str):
     rounds = raw_input.splitlines()
-    return sum( [total_score_of_the_round(*round.split(" ")) for round in rounds ] )
+    return sum(total_score_of_the_round(*round.split(" ")) for round in rounds)

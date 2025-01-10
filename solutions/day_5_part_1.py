@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Command:
     amount: int
     from_stack: int
     to_stack: int
+
 
 class Ship:
     def __init__(self, input_lines: list[str]) -> None:
