@@ -15,6 +15,7 @@ class VolcanoComplex:
         self.flow_valves = [valve.id for valve in self.valves.values() if valve.flow_rate > 0]
         self.shortest_path = {valve.id: self.shortest_paths(valve) for valve in self.valves.values()}
         self.cache = {}
+        self.valve_index = {valve_id: 1 << index for (index, valve_id) in enumerate(self.flow_valves)}
 
     def shortest_paths(self, starting_valve: "Valve"):
         queue = deque([starting_valve.id])
@@ -28,31 +29,30 @@ class VolcanoComplex:
         del distances[starting_valve.id]
         return distances
 
-    def max_flow_rate(self, start_valve, visited_valves: set[str], time_left=30):
+    def max_flow_rate(self, start_valve, visited_valves=0, time_left=30):
         cache_key = (
             start_valve,
-            ''.join(sorted(list(visited_valves))),
-            # tuple(True if flow_valve in visited_valves else False for flow_valve in self.flow_valves),
+            visited_valves,
             time_left
         )
         if cache_key in self.cache:
             return self.cache[cache_key]
 
-        possible_flows = [0]
+        possible_flows = []
         for next_valve in self.flow_valves:
-            if next_valve not in visited_valves:
+            if not self.valve_index[next_valve] & visited_valves:
                 new_time_left = time_left - 1 - self.shortest_path[start_valve][next_valve]
                 if new_time_left > 0:
                     additional_flow = new_time_left * self.valves[next_valve].flow_rate
                     remaining_flow = self.max_flow_rate(
                         next_valve,
-                        visited_valves.union([next_valve]),
+                        visited_valves | self.valve_index[next_valve],
                         new_time_left)
                     possible_flows.append(additional_flow + remaining_flow)
-        self.cache[cache_key] = max(possible_flows)
+        self.cache[cache_key] = max(possible_flows) if possible_flows else 0
         return self.cache[cache_key]
 
 
 def solution(raw_input: str):
     volcano_complex = VolcanoComplex(raw_input)
-    return volcano_complex.max_flow_rate("AA", set())
+    return volcano_complex.max_flow_rate("AA")
