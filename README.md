@@ -6,13 +6,13 @@ To run the solution create a file `Day_n.txt` with the input pasted in. Then run
 
 Data for each task can be accessed through the site.
 
-44/50⭐
+45/50⭐ (44/50⭐ earned during the event)
 
 |            | 木 | 金 | 土 | 日 | 月 | 火 | 水 |
 |:-----------|-------|-------|-------|-------|-------|-------|-------|
 | **Week 1** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
 | **Week 2** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
-| **Week 3** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐|⭐&nbsp;⭐||⭐|⭐&nbsp;⭐|
+| **Week 3** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;✨|⭐&nbsp;⭐||⭐|⭐&nbsp;⭐|
 | **Week 4** |⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐|🎄&nbsp;&nbsp;🎄|||
 
 <br>
