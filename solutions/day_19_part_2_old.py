@@ -1,22 +1,7 @@
 from enum import Enum
 from math import ceil, prod
-from dataclasses import dataclass
-from collections import deque
 
-MINUTES: int = 32
-
-
-@dataclass
-class State:
-    time_left: int
-    robots: list[int]
-    ores: list[int]
-
-    def values(self):
-        return self.time_left, self.robots, self.ores
-
-
-INITIAL_STATE = State(MINUTES, [1, 0, 0, 0], [0, 0, 0, 0])
+MINUTES = 32
 
 
 class OreTypes(Enum):
@@ -74,37 +59,34 @@ class Blueprint:
         self.max_production = 0
 
     def find_maximum_production(self):
-        stack = deque([INITIAL_STATE])
-        while stack:
-            state = stack.pop()
-            time_left, robots, ores = state.values()
-
-            current_geode_forecast = ores[-1] + time_left * robots[-1]
-            self.max_production = max(self.max_production, current_geode_forecast)
-
-            if time_left <= 1:
-                continue
-
-            if current_geode_forecast + time_left * (time_left - 1) // 2 < self.max_production:
-                continue
-
-            for ore_type in reversed(OreTypes):
-                if ore_type != OreTypes.GEODE and self.max_ore_cost[ore_type.value] <= robots[ore_type.value]:
-                    continue
-                if self.robots[ore_type].can_produce(robots):
-                    time_to_produce = self.robots[ore_type].time_to_produce(robots, ores)
-                    if time_left - time_to_produce >= 0:
-                        new_time = time_left - time_to_produce
-                        new_robots = robots[:]
-                        new_robots[ore_type.value] += 1
-                        new_ores = [
-                            z[0] + time_to_produce * z[1] - z[2]
-                            for z in zip(ores, robots, self.robots[ore_type].cost)
-                        ]
-                        stack.append(State(new_time, new_robots, new_ores))
-
+        self.find_maximum_production_aux(time_left=MINUTES, robots=[1, 0, 0, 0], ores=[0, 0, 0, 0])
         self.max_production_found = True
         return self.max_production
+
+    def find_maximum_production_aux(self, time_left, robots, ores):
+        current_geode_forecast = ores[-1] + time_left * robots[-1]
+        self.max_production = max(self.max_production, current_geode_forecast)
+
+        if current_geode_forecast + time_left * (time_left - 1) // 2 < self.max_production:
+            return None
+
+        next_steps = []
+        for ore_type in reversed(OreTypes):
+            if ore_type != OreTypes.GEODE and self.max_ore_cost[ore_type.value] <= robots[ore_type.value]:
+                continue
+            if self.robots[ore_type].can_produce(robots):
+                time_to_produce = self.robots[ore_type].time_to_produce(robots, ores)
+                if time_left - time_to_produce >= 0:
+                    new_time = time_left - time_to_produce
+                    new_robots = robots[:]
+                    new_robots[ore_type.value] += 1
+                    new_ores = [
+                        z[0] + time_to_produce * z[1] - z[2]
+                        for z in zip(ores, robots, self.robots[ore_type].cost)
+                    ]
+                    next_steps.append((new_time, new_robots, new_ores))
+        for args in next_steps:
+            self.find_maximum_production_aux(*args)
 
     def quality(self):
         if not self.max_production_found:
