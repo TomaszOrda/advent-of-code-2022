@@ -1,5 +1,3 @@
-# from collections import deque
-
 DECRYPTION_KEY = 811589153
 
 
@@ -8,7 +6,8 @@ class Decryptor:
         self.numbers = [int(line) for line in lines]
         self.id_0 = self.numbers.index(0)
         self.length = len(self.numbers)
-        self.position_after_shifts = list(range(self.length))
+        self.id_to_position = list(range(self.length))
+        self.position_to_id = list(range(self.length))
         self.shifts = [number % (self.length - 1) for number in self.numbers]
 
     def apply_decryption_key(self, decryption_key):
@@ -16,25 +15,24 @@ class Decryptor:
         self.shifts = [number % (self.length - 1) for number in self.numbers]
 
     def mix(self):
-        for number_id in range(self.length):
-            position = self.position_after_shifts[number_id]
-            number = self.numbers[position]
+        for number_id, position in enumerate(self.id_to_position):
             shift = self.shifts[number_id]
-            del self.numbers[position]
+
             if shift + position < self.length:
                 new_position = shift + position
-                self.position_after_shifts = [
-                    pos - 1 if pos in range(position, new_position + 1) else pos
-                    for pos in self.position_after_shifts
-                ]
+                for pos in range(position, new_position):
+                    right_neighbour = self.position_to_id[pos + 1]
+                    self.id_to_position[right_neighbour] -= 1
+                    self.position_to_id[pos] = right_neighbour
             else:
-                new_position = (shift + position) % (self.length - 1)
-                self.position_after_shifts = [
-                    pos + 1 if pos in range(new_position, position) else pos
-                    for pos in self.position_after_shifts
-                ]
-            self.numbers.insert(new_position, number)
-            self.position_after_shifts[number_id] = new_position
+                new_position = (shift + position + 1) % self.length
+                for pos in range(position, new_position, -1):
+                    left_neighbour = self.position_to_id[pos - 1]
+                    self.id_to_position[left_neighbour] += 1
+                    self.position_to_id[pos] = left_neighbour
+
+            self.id_to_position[number_id] = new_position
+            self.position_to_id[new_position] = number_id
 
 
 def solution(raw_input: str):
@@ -43,14 +41,13 @@ def solution(raw_input: str):
     for _ in range(10):
         encrypted_file.mix()
 
-    position_0 = encrypted_file.position_after_shifts[encrypted_file.id_0]
-    position_0_1000 = (position_0 + 1000) % len(encrypted_file.numbers)
-    position_0_2000 = (position_0 + 2000) % len(encrypted_file.numbers)
-    position_0_3000 = (position_0 + 3000) % len(encrypted_file.numbers)
-    groove_coordinates = sum((
-        encrypted_file.numbers[position_0_1000],
-        encrypted_file.numbers[position_0_2000],
-        encrypted_file.numbers[position_0_3000]
-    ))
+    position_0 = encrypted_file.id_to_position[encrypted_file.id_0]
+
+    groove_coordinates = 0
+    for shift in [1000, 2000, 3000]:
+
+        position = (position_0 + shift) % encrypted_file.length
+        number_id = encrypted_file.position_to_id[position]
+        groove_coordinates += encrypted_file.numbers[number_id]
 
     return groove_coordinates
