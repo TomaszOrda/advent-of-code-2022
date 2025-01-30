@@ -1,14 +1,15 @@
 A record of my solutions for 2022 [Advent Of Code](https://adventofcode.com/2022 "AoC").
 
-Solutions for each day and task are in separate files. The solutions are quite old, and will require some reworking. Thus I will be adding them slowly. Also I plan on solving the tasks I havent had time for back in 2022.
+Solutions for each day and task are in separate files. To run the solution, create a file `Day_n.txt` with the input pasted in. Then run the `.py` file. Data for each task can be accessed through the AoC site.
 
-To run the solution create a file `Day_n.txt` with the input pasted in. Then run the `.py` file.
+I have attended AoC in 2022. I did not manage to earn all the stars — only 44, mostly because I wanted to spend one day for each task during the event, and haven't had much motivation redoing the missing days after.
 
-Data for each task can be accessed through the site.
+Old solutions were not as pretty as I'd like. Thus I had to rewrite every one of them.
 
-50/50⭐ (44/50⭐ earned during the event)
+Stars I got in 2022 are denoted by ⭐. All the other stars were obtained during creation of this repository.
 
-|            | 木 | 金 | 土 | 日 | 月 | 火 | 水 |
+
+|   50/50⭐ | 木 | 金 | 土 | 日 | 月 | 火 | 水 |
 |:-----------|-------|-------|-------|-------|-------|-------|-------|
 | **Week 1** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
 | **Week 2** |⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|⭐&nbsp;⭐|
