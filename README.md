@@ -6,6 +6,8 @@ I have attended AoC in 2022. I did not manage to earn all the stars — only 44,
 
 Old solutions were not as pretty as I'd like. Thus I had to rewrite every one of them.
 
+The tests are quite slow (~8 seconds on my machine) because of day 19. I do not think much can be done about it, since its complexity similar to the actual input. Every solution should run under 15 seconds, and most finishing in under a second.
+
 Stars I got in 2022 are denoted by ⭐. All the other stars were obtained during creation of this repository.
 
 
